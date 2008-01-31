@@ -373,9 +373,9 @@ class TestDoc(MyTest):
         """
         for filename in sorted(['README'] + glob("doc/*.txt")):
             print('Testing documentation file %s' % filename)
-            fails, tests = doctest.testfile(filename,
-                                            optionflags=self.doctest_opts,
-                                            extraglobs=self.extraglobs)
+            fails = doctest.testfile(filename,
+                                     optionflags=self.doctest_opts,
+                                     extraglobs=self.extraglobs)[0]
             if self.exit_on_fail and not fails == 0:
                 sys.exit(1)
         if hasattr(__pkg_data__, "TestDoc_run"):
