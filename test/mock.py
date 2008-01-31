@@ -48,8 +48,6 @@ try:
 except ImportError:
     import StringIO
 
-from types import ModuleType
-
 import grab_net_sources
 SOURCES = dict([(os.path.basename(i), i) for i in grab_net_sources.SOURCES])
 
@@ -100,8 +98,8 @@ def open(filename, mode="rb"):
     @type mode: C{str}
     @param mode: Valid C{file} mode string
     @rtype: C{file}
-    @return: File object opened from test data directory, or C{StringIO.StringIO}
-        object if a writable file is expected
+    @return: File object opened from test data directory, or
+        C{StringIO.StringIO} object if a writable file is expected
     @raise NotImplementedError: When attempting to use an unhandled file mode
     """
     if "r" in mode:
