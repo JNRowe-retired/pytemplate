@@ -94,9 +94,9 @@ def write_manifest(files):
     @type files: C{list}
     @param files: Filenames to include in MANIFEST
     """
-    f = open("MANIFEST", "w")
-    f.write("\n".join(sorted(files)) + "\n")
-    f.close()
+    manifest = open("MANIFEST", "w")
+    manifest.write("\n".join(sorted(files)) + "\n")
+    manifest.close()
 
 def gen_desc(doc):
     """
@@ -257,9 +257,9 @@ class HgSdist(sdist):
         manifest_files.extend([".hg_version", "ChangeLog"])
         manifest_files.extend(glob("*.html"))
         manifest_files.extend(glob("doc/*.html"))
-        for path, dir, filenames in os.walk("html"):
-            for file in filenames:
-                manifest_files.append(os.path.join(path, file))
+        for path, directory, filenames in os.walk("html"):
+            for filename in filenames:
+                manifest_files.append(os.path.join(path, filename))
         execute(write_manifest, [manifest_files], "writing MANIFEST")
         sdist.get_file_list(self)
 
@@ -322,10 +322,11 @@ class MyClean(clean):
         """
         clean.run(self)
         if self.all:
-            for file in [".hg_version", "ChangeLog", "MANIFEST"] \
+            for filename in [".hg_version", "ChangeLog", "MANIFEST"] \
                 + glob("*.html") + glob("doc/*.html") \
-                + glob("%s/*.pyc" % __pkg_data__.module.__name__):
-                os.path.exists(file) and os.unlink(file)
+                + glob("%s/*.pyc" % __pkg_data__.MODULE.__name__):
+                if os.path.exists(filename):
+                    os.unlink(filename)
             execute(shutil.rmtree, ("html", True))
         if hasattr(__pkg_data__, "MyClean_run"):
             __pkg_data__.MyClean_run(self.dry_run, self.force)
