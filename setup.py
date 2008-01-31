@@ -300,7 +300,8 @@ class Snapshot(NoOptsCommand):
                                snapshot_name))
         execute(shutil.rmtree, (snapshot_location, ))
 
-    def generate_tree(self, snapshot_name):
+    @staticmethod
+    def generate_tree(snapshot_name):
         """
         Generate a clean Mercurial clone
         """
