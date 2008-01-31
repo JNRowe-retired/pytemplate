@@ -38,7 +38,7 @@ from subprocess import check_call
 from time import strftime
 
 try:
-    from docutils.core import (publish_cmdline, default_description)
+    from docutils.core import publish_cmdline
     from docutils import nodes
     from docutils.parsers.rst import directives
     DOCUTILS = True #: True if C{docutils} module is available
