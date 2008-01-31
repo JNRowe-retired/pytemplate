@@ -112,7 +112,7 @@ def gen_desc(doc):
 
 class NoOptsCommand(Command):
     """
-    Abstract class for simple distutils command implementation 
+    Abstract class for simple distutils command implementation
     """
     def initialize_options(self):
         """
@@ -163,6 +163,9 @@ class BuildDoc(NoOptsCommand):
         def pygments_directive(name, arguments, options, content, lineno,
                                content_offset, block_text, state,
                                state_machine):
+            """
+            Code colourising directive for docutils
+            """
             try:
                 lexer = get_lexer_by_name(arguments[0])
             except ValueError:
