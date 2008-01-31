@@ -66,7 +66,7 @@ import __pkg_data__
 import test
 
 BASE_URL = "http://www.jnrowe.ukfsn.org/" #: Base URL for links
-PROJECT_URL = "%sprojects/%s.html" % (BASE_URL, __pkg_data__.module.__name__)
+PROJECT_URL = "%sprojects/%s.html" % (BASE_URL, __pkg_data__.MODULE.__name__)
 
 from sys import version_info
 if version_info < (2, 5, 0, 'final'):
@@ -189,14 +189,15 @@ class BuildDoc(NoOptsCommand):
         if not EPYDOC:
             raise DistutilsModuleError("epydoc import failed, "
                                        "skipping API documentation generation")
-        files = glob("%s/*.py" % __pkg_data__.module.__name__)
-        files.extend([os.path.basename(i.__file__) for i in __pkg_data__.scripts])
+        files = glob("%s/*.py" % __pkg_data__.MODULE.__name__)
+        files.extend([os.path.basename(script.__file__)
+                      for script in __pkg_data__.SCRIPTS])
         if self.force or any(newer(file, "html/index.html") for file in files):
             print("Building API documentation")
             if not self.dry_run:
                 saved_args = sys.argv[1:]
-                sys.argv[1:] = ["--name", __pkg_data__.module.__name__, "--url",
-                                PROJECT_URL] \
+                sys.argv[1:] = ["--name", __pkg_data__.MODULE.__name__,
+                                "--url", PROJECT_URL] \
                                + files
                 cli.cli()
                 sys.argv[1:] = saved_args
@@ -238,10 +239,11 @@ class HgSdist(sdist):
         self.repo = hg.repository(None, os.curdir)
         if filter(lambda i: not i == [], self.repo.status()[:4]):
             raise DistutilsFileError("Uncommitted changes!")
-        news_format = "%s - %s" % (__pkg_data__.module.__version__,
+        news_format = "%s - %s" % (__pkg_data__.MODULE.__version__,
                                    strftime("%Y-%m-%d"))
         if not any(filter(lambda s: s.strip() == news_format, open("NEWS"))):
-            print("NEWS entry for `%s' missing" % __pkg_data__.module.__version__)
+            print("NEWS entry for `%s' missing"
+                  % __pkg_data__.MODULE.__version__)
             sys.exit(1)
 
     def get_file_list(self):
@@ -287,9 +289,9 @@ class Snapshot(NoOptsCommand):
         """
         Prepare and create tarball
         """
-        snapshot_name="%s-%s" % (__pkg_data__.module.__name__,
-                                 strftime("%Y-%m-%d"))
-        snapshot_location="dist/%s" % snapshot_name
+        snapshot_name = "%s-%s" % (__pkg_data__.MODULE.__name__,
+                                   strftime("%Y-%m-%d"))
+        snapshot_location = "dist/%s" % snapshot_name
         if os.path.isdir(snapshot_location):
             execute(shutil.rmtree, (snapshot_location, ))
         execute(self.generate_tree, (snapshot_location, ))
@@ -386,8 +388,9 @@ class TestCode(MyTest):
         """
         Run the source's docstring code examples
         """
-        files = glob("%s/*.py" % __pkg_data__.module.__name__)
-        files.extend([os.path.basename(i.__file__) for i in __pkg_data__.scripts])
+        files = glob("%s/*.py" % __pkg_data__.MODULE.__name__)
+        files.extend([os.path.basename(i.__file__)
+                      for i in __pkg_data__.SCRIPTS])
         for filename in sorted(files):
             print('Testing python file %s' % filename)
             module = os.path.splitext(filename)[0].replace("/", ".")
@@ -403,21 +406,21 @@ class TestCode(MyTest):
 
 if __name__ == "__main__":
     setup(
-        name = __pkg_data__.module.__name__,
-        version = __pkg_data__.module.__version__,
-        description = __pkg_data__.description,
-        long_description = __pkg_data__.long_description,
-        author = parseaddr(__pkg_data__.module.__author__)[0],
-        author_email = parseaddr(__pkg_data__.module.__author__)[1],
+        name = __pkg_data__.MODULE.__name__,
+        version = __pkg_data__.MODULE.__version__,
+        description = __pkg_data__.DESCRIPTION,
+        long_description = __pkg_data__.LONG_DESCRIPTION,
+        author = parseaddr(__pkg_data__.MODULE.__author__)[0],
+        author_email = parseaddr(__pkg_data__.MODULE.__author__)[1],
         url = PROJECT_URL,
         download_url = "%sdata/%s-%s.tar.bz2" \
-            % (BASE_URL, __pkg_data__.module.__name__,
-               __pkg_data__.module.__version__),
-        packages = [__pkg_data__.module.__name__],
-        scripts = [os.path.basename(i.__file__) for i in __pkg_data__.scripts],
-        license = __pkg_data__.module.__license__,
-        keywords = __pkg_data__.keywords,
-        classifiers = __pkg_data__.classifiers,
+            % (BASE_URL, __pkg_data__.MODULE.__name__,
+               __pkg_data__.MODULE.__version__),
+        packages = [__pkg_data__.MODULE.__name__],
+        scripts = [os.path.basename(i.__file__) for i in __pkg_data__.SCRIPTS],
+        license = __pkg_data__.MODULE.__license__,
+        keywords = __pkg_data__.KEYWORDS,
+        classifiers = __pkg_data__.CLASSIFIERS,
         options = {'sdist': {'formats': 'bztar'}},
         cmdclass = {
             'build_doc': BuildDoc, 'clean': MyClean, 'sdist': HgSdist,

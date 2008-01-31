@@ -19,12 +19,12 @@
 #
 
 import modname
-module = modname
+MODULE = modname
 
-scripts = []
+SCRIPTS = []
 
-description = ""
-long_description = """"""
+DESCRIPTION = ""
+LONG_DESCRIPTION = """"""
 
-keywords = []
-classifiers = []
+KEYWORDS = []
+CLASSIFIERS = []
