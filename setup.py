@@ -355,8 +355,8 @@ class MyTest(NoOptsCommand):
             "os": test.mock.os,
             "urllib": test.mock.urllib,
         } #: Mock objects to include for test framework
-        if hasattr(__pkg_data__, "test_extraglobs"):
-            for value in __pkg_data__.test_extraglobs:
+        if hasattr(__pkg_data__, "TEST_EXTRAGLOBS"):
+            for value in __pkg_data__.TEST_EXTRAGLOBS:
                 self.extraglobs[value] = getattr(test.mock, value)
 
 class TestDoc(MyTest):
