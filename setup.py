@@ -240,7 +240,7 @@ class HgSdist(sdist):
             raise DistutilsModuleError("Mercurial import failed, "
                                        "unable to build release")
         self.repo = hg.repository(None, os.curdir)
-        if filter(lambda i: not i == [], self.repo.status()[:4]):
+        if filter(lambda i: not i, self.repo.status()[:4]):
             raise DistutilsFileError("Uncommitted changes!")
         news_format = "%s - %s" % (__pkg_data__.MODULE.__version__,
                                    strftime("%Y-%m-%d"))
