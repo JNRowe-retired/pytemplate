@@ -68,8 +68,7 @@ import test
 BASE_URL = "http://www.jnrowe.ukfsn.org/" #: Base URL for links
 PROJECT_URL = "%sprojects/%s.html" % (BASE_URL, __pkg_data__.MODULE.__name__)
 
-from sys import version_info
-if version_info < (2, 5, 0, 'final'):
+if sys.version_info < (2, 5, 0, 'final'):
     raise SystemError("Requires Python v2.5+")
 
 def write_changelog(filename):
