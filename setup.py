@@ -194,7 +194,8 @@ class BuildDoc(NoOptsCommand):
         files = glob("%s/*.py" % __pkg_data__.MODULE.__name__)
         files.extend([os.path.basename(script.__file__)
                       for script in __pkg_data__.SCRIPTS])
-        if self.force or any(newer(file, "html/index.html") for file in files):
+        if self.force \
+            or any(newer(filename, "html/index.html") for filename in files):
             print("Building API documentation")
             if not self.dry_run:
                 saved_args = sys.argv[1:]
