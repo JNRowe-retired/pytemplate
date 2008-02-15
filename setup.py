@@ -192,8 +192,7 @@ class BuildDoc(NoOptsCommand):
             raise DistutilsModuleError("epydoc import failed, "
                                        "skipping API documentation generation")
         files = glob("%s/*.py" % __pkg_data__.MODULE.__name__)
-        files.extend([os.path.basename(script.__file__)
-                      for script in __pkg_data__.SCRIPTS])
+        files.extend(["%s.py" % i.__name__ for i in __pkg_data__.SCRIPTS])
         if self.force \
             or any(newer(filename, "html/index.html") for filename in files):
             print("Building API documentation")
