@@ -125,6 +125,7 @@ class NoOptsCommand(Command):
         """
         pass
 
+
 class BuildDoc(NoOptsCommand):
     """
     Build project documentation
@@ -221,6 +222,7 @@ class BuildDoc(NoOptsCommand):
         if hasattr(__pkg_data__, "BuildDoc_run"):
             __pkg_data__.BuildDoc_run(self.dry_run, self.force)
 
+
 class HgSdist(sdist):
     """
     Create a source distribution tarball
@@ -280,6 +282,7 @@ class HgSdist(sdist):
         repo_id = hg.short(self.repo.lookup("tip"))
         write_file(".hg_version", ("%s tip\n" % repo_id, ))
 
+
 class Snapshot(NoOptsCommand):
     """
     Build a daily snapshot tarball
@@ -310,6 +313,7 @@ class Snapshot(NoOptsCommand):
         check_call(["hg", "archive", snapshot_name])
         shutil.rmtree("%s/.be" % snapshot_name)
 
+
 class MyClean(clean):
     """
     Clean built and temporary files
@@ -332,6 +336,7 @@ class MyClean(clean):
             execute(shutil.rmtree, ("html", True))
         if hasattr(__pkg_data__, "MyClean_run"):
             __pkg_data__.MyClean_run(self.dry_run, self.force)
+
 
 class MyTest(NoOptsCommand):
     """
@@ -358,6 +363,7 @@ class MyTest(NoOptsCommand):
             for value in __pkg_data__.TEST_EXTRAGLOBS:
                 self.extraglobs[value] = getattr(test.mock, value)
 
+
 class TestDoc(MyTest):
     """
     Test documentation's code examples
@@ -379,6 +385,7 @@ class TestDoc(MyTest):
                 sys.exit(1)
         if hasattr(__pkg_data__, "TestDoc_run"):
             __pkg_data__.TestDoc_run(self.dry_run, self.force)
+
 
 class TestCode(MyTest):
     """
