@@ -48,7 +48,9 @@ try:
 except ImportError:
     import StringIO
 
-import grab_net_sources
+from types import ModuleType
+
+from test import grab_net_sources
 SOURCES = dict([(os.path.basename(i), i) for i in grab_net_sources.SOURCES])
 
 BASEDIR = os.path.dirname(__file__)
@@ -128,4 +130,65 @@ def urlopen(url, data=None, proxies=None):
     """
     return _get_test_file(os.path.basename(url))
 urllib.urlopen = urlopen
+
+class pymetar(ModuleType):
+    """
+    Mock `pymetar` infrastructure for tests
+
+    :since: 0.6.0
+
+    :see: `pymetar <http://www.schwarzvogel.de/software-pymetar.shtml>`__
+    """
+    class ReportFetcher(object):
+        def __init__(self, StationCode=None):
+            """
+            Mock `ReportFetcher` initialisation for tests
+
+            :Parameters:
+                StationCode : any
+                    Ignored, just for compatibility with `ReportFetcher`
+                    callers
+            """
+            super(pymetar.ReportFetcher, self).__init__()
+
+        @staticmethod
+        def FetchReport():
+            """
+            Mock ``FetchReport`` function to pass tests
+            """
+            pass
+
+
+    class ReportParser(object):
+        class ParseReport(object):
+            def __init__(self, MetarReport=None):
+                """
+                Mock ``ParseReport`` object to return test data
+
+                :Parameters:
+                    MetarReport : any
+                        Ignored, just for compatibility with ``FetchReport``
+                        callers
+                """
+                super(pymetar.ReportParser.ParseReport, self).__init__()
+
+            @staticmethod
+            def getTemperatureCelsius():
+                """
+                Mock `getTemperatureCelsius`
+
+                :rtype: `float`
+                :return: Sample temperature data for tests
+                """
+                return 10.3
+
+            @staticmethod
+            def getISOTime():
+                """
+                Mock `getISOTime`
+
+                :rtype: `str`
+                :return: Sample ISO time string
+                """
+                return "2007-11-28 19:20:00Z"
 
