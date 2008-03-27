@@ -29,15 +29,16 @@ __license__ = "GNU General Public License Version 3"
 __credits__ = ""
 __history__ = "See Mercurial repository"
 
+from email.utils import parseaddr
+
 __doc__ += """
 
-@version: %s
-@author: U{%s%s}
-@copyright: %s
-@status: WIP
-@license: %s
-""" % (__version__, __author__[0:__author__.rfind(" ")],
-       __author__[__author__.rfind(" "):], __copyright__, __license__)
+:version: %s
+:author: `%s <mailto:%s>`__
+:copyright: %s
+:status: WIP
+:license: %s
+""" % ((__version__, ) + parseaddr(__author__) + (__copyright__, __license__))
 
 import __builtin__
 import os
