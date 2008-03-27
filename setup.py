@@ -201,7 +201,8 @@ class BuildDoc(NoOptsCommand):
                 saved_args = sys.argv[1:]
                 sys.argv[1:] = ["--name", __pkg_data__.MODULE.__name__,
                                 "--url", PROJECT_URL,
-                                "--docformat", "restructuredtext"] \
+                                "--docformat", "restructuredtext",
+                                "--no-sourcecode"] \
                                + files
                 cli.cli()
                 sys.argv[1:] = saved_args
