@@ -419,23 +419,23 @@ class TestCode(MyTest):
 
 if __name__ == "__main__":
     setup(
-        name = __pkg_data__.MODULE.__name__,
-        version = __pkg_data__.MODULE.__version__,
-        description = __pkg_data__.DESCRIPTION,
-        long_description = __pkg_data__.LONG_DESCRIPTION,
-        author = parseaddr(__pkg_data__.MODULE.__author__)[0],
-        author_email = parseaddr(__pkg_data__.MODULE.__author__)[1],
-        url = PROJECT_URL,
-        download_url = "%sdata/%s-%s.tar.bz2" \
+        name=__pkg_data__.MODULE.__name__,
+        version=__pkg_data__.MODULE.__version__,
+        description=__pkg_data__.DESCRIPTION,
+        long_description=__pkg_data__.LONG_DESCRIPTION,
+        author=parseaddr(__pkg_data__.MODULE.__author__)[0],
+        author_email=parseaddr(__pkg_data__.MODULE.__author__)[1],
+        url=PROJECT_URL,
+        download_url="%sdata/%s-%s.tar.bz2" \
             % (BASE_URL, __pkg_data__.MODULE.__name__,
                __pkg_data__.MODULE.__version__),
-        packages = [__pkg_data__.MODULE.__name__],
-        scripts = [os.path.basename(i.__file__) for i in __pkg_data__.SCRIPTS],
-        license = __pkg_data__.MODULE.__license__,
-        keywords = __pkg_data__.KEYWORDS,
-        classifiers = __pkg_data__.CLASSIFIERS,
-        options = {'sdist': {'formats': 'bztar'}},
-        cmdclass = {
+        packages=[__pkg_data__.MODULE.__name__],
+        scripts=[os.path.basename(i.__file__) for i in __pkg_data__.SCRIPTS],
+        license=__pkg_data__.MODULE.__license__,
+        keywords=__pkg_data__.KEYWORDS,
+        classifiers=__pkg_data__.CLASSIFIERS,
+        options={'sdist': {'formats': 'bztar'}},
+        cmdclass={
             'build_doc': BuildDoc, 'clean': MyClean, 'sdist': HgSdist,
             'snapshot': Snapshot, 'test_doc': TestDoc, 'test_code': TestCode,
         },
