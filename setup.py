@@ -71,6 +71,8 @@ PROJECT_URL = "%sprojects/%s.html" % (BASE_URL, __pkg_data__.MODULE.__name__)
 if sys.version_info < (2, 5, 0, 'final'):
     raise SystemError("Requires Python v2.5+")
 
+#{ Generated data file functions
+
 def write_changelog(filename):
     """
     Generate a ChangeLog from Mercurial repo
@@ -99,6 +101,10 @@ def write_manifest(files):
     manifest.write("\n".join(sorted(files)) + "\n")
     manifest.close()
 
+#}
+
+#{ Implementation utilities
+
 def gen_desc(doc):
     """
     Pull simple description from docstring
@@ -111,6 +117,7 @@ def gen_desc(doc):
     """
     desc = doc.splitlines()[1].lstrip()
     return desc[0].lower() + desc[1:]
+
 
 class NoOptsCommand(Command):
     """
@@ -127,6 +134,8 @@ class NoOptsCommand(Command):
         Finalize, and test validity, of options
         """
         pass
+
+#}
 
 
 class BuildDoc(NoOptsCommand):
@@ -231,6 +240,8 @@ class BuildDoc(NoOptsCommand):
             __pkg_data__.BuildDoc_run(self.dry_run, self.force)
 
 
+#{ Distribution utilities
+
 class HgSdist(sdist):
     """
     Create a source distribution tarball
@@ -324,6 +335,8 @@ class Snapshot(NoOptsCommand):
         check_call(["hg", "archive", snapshot_name])
         shutil.rmtree("%s/.be" % snapshot_name)
 
+#}
+
 
 class MyClean(clean):
     """
@@ -348,6 +361,8 @@ class MyClean(clean):
         if hasattr(__pkg_data__, "MyClean_run"):
             __pkg_data__.MyClean_run(self.dry_run, self.force)
 
+
+#{ Testing utilities
 
 class MyTest(NoOptsCommand):
     """
@@ -425,6 +440,8 @@ class TestCode(MyTest):
                 sys.exit(1)
         if hasattr(__pkg_data__, "TestCode_run"):
             __pkg_data__.TestCode_run(self.dry_run, self.force)
+
+#}
 
 if __name__ == "__main__":
     setup(
