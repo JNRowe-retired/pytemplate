@@ -254,7 +254,7 @@ class HgSdist(sdist):
 
     def get_file_list(self):
         """
-        Generate file MANIFEST contents from Mercurial tree
+        Generate MANIFEST file contents from Mercurial tree
         """
         changeset = self.repo.changectx()
         # Include all but Bugs Everywhere data from repo in tarballs
