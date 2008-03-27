@@ -28,3 +28,6 @@ LONG_DESCRIPTION = """"""
 
 KEYWORDS = []
 CLASSIFIERS = []
+
+GRAPH_TYPE = None
+
