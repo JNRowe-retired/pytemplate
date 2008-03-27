@@ -55,12 +55,13 @@ BASEDIR = os.path.dirname(__file__)
 
 def isfile(path):
     """
-    Mock C{isfile} to check existance of test files
+    Mock `isfile` to check existence of test files
 
-    @type path: C{str}
-    @param path: File to check for existance
-    @rtype: C{bool}
-    @return: True if file exists, False otherwise
+    :Parameters:
+        path : `str`
+            File to check for existence
+    :rtype: `bool`
+    :return: `True` if file exists, `False` otherwise
     """
     filename = os.path.basename(path)
     try:
@@ -73,11 +74,12 @@ def _get_test_file(filename):
     """
     Open a test data file
 
-    @type filename: C{str}
-    @param filename: Basename of the test data to open
-    @rtype: C{file}
-    @return: Test data
-    @raise IOError: When the file can't be opened for reading
+    :Parameters:
+        filename : `str`
+            Basename of the test data to open
+    :rtype: `file`
+    :return: Test data
+    :raise IOError: When the file can't be opened for reading
     """
     if isfile(filename):
         return __builtin__.open(os.path.join(BASEDIR, "data", filename))
@@ -91,16 +93,17 @@ def _get_test_file(filename):
 
 def open(filename, mode="rb"):
     """
-    Mock C{open} function to open test data files
+    Mock `open` function to open test data files
 
-    @type filename: C{str}
-    @param filename: File to simulate, basename is used as local file name
-    @type mode: C{str}
-    @param mode: Valid C{file} mode string
-    @rtype: C{file}
-    @return: File object opened from test data directory, or
-        C{StringIO.StringIO} object if a writable file is expected
-    @raise NotImplementedError: When attempting to use an unhandled file mode
+    :Parameters:
+        filename : `str`
+            File to simulate, basename is used as local file name
+        mode : `str`
+            Valid `file` mode string
+    :rtype: `file`
+    :return: File object opened from test data directory, or ``StringIO.StringIO``
+        object if a writable file is expected
+    :raise NotImplementedError: When attempting to use an unhandled file mode
     """
     if "r" in mode:
         return _get_test_file(os.path.basename(filename))
@@ -111,16 +114,17 @@ def open(filename, mode="rb"):
 
 def urlopen(url, data=None, proxies=None):
     """
-    Mock C{urlopen} to open test data files
+    Mock `urlopen` to open test data files
 
-    @type url: C{str}
-    @param url: URL to simulate, basename is used as local file name
-    @type data: any
-    @param data: Ignored, just for compatibility with C{urlopen} callers
-    @type proxies: any
-    @param proxies: Ignored, just for compatibility with C{urlopen} callers
-    @rtype: C{file}
-    @return: File object from test data directory
+    :Parameters:
+        url : `str`
+            URL to simulate, basename is used as local file name
+        data : any
+            Ignored, just for compatibility with `urlopen` callers
+        proxies : any
+            Ignored, just for compatibility with `urlopen` callers
+    :rtype: `file`
+    :return: File object from test data directory
     """
     return _get_test_file(os.path.basename(url))
 urllib.urlopen = urlopen

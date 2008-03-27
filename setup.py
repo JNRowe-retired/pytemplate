@@ -41,24 +41,24 @@ try:
     from docutils.core import publish_cmdline
     from docutils import nodes
     from docutils.parsers.rst import directives
-    DOCUTILS = True #: True if C{docutils} module is available
+    DOCUTILS = True #: True if ``docutils`` module is available
 except ImportError:
     DOCUTILS = False
 try:
     from pygments import highlight
     from pygments.lexers import get_lexer_by_name
     from pygments.formatters import HtmlFormatter
-    PYGMENTS = True #: True if C{pygments} module is available
+    PYGMENTS = True #: True if ``pygments`` module is available
 except ImportError:
     PYGMENTS = False
 try:
     from epydoc import cli
-    EPYDOC = True #: True if C{epydoc} module is available
+    EPYDOC = True #: True if ``epydoc`` module is available
 except ImportError:
     EPYDOC = False
 try:
     from mercurial import hg
-    MERCURIAL = True #: True if C{mercurial} module is available
+    MERCURIAL = True #: True if ``mercurial`` module is available
 except ImportError:
     MERCURIAL = False
 
@@ -75,8 +75,9 @@ def write_changelog(filename):
     """
     Generate a ChangeLog from Mercurial repo
 
-    @type filename: C{str}
-    @param filename: Filename to write ChangeLog to
+    :Parameters:
+        filename : `str`
+            Filename to write ChangeLog to
     """
     if os.path.isdir(".hg"):
         check_call(["hg", "log", "--exclude", ".be/", "--no-merges",
@@ -90,8 +91,9 @@ def write_manifest(files):
     """
     Generate a MANIFEST file
 
-    @type files: C{list}
-    @param files: Filenames to include in MANIFEST
+    :Parameters:
+        files : `list`
+            Filenames to include in MANIFEST
     """
     manifest = open("MANIFEST", "w")
     manifest.write("\n".join(sorted(files)) + "\n")
@@ -101,17 +103,18 @@ def gen_desc(doc):
     """
     Pull simple description from docstring
 
-    @type doc: C{str}
-    @param doc: Docstring to manipulate
-    @rtype: C{str}
-    @return: description string suitable for C{Command} class's description
+    :Parameters:
+        doc : `str`
+            Docstring to manipulate
+    :rtype: str
+    :return: Description string suitable for ``Command`` class's description
     """
     desc = doc.splitlines()[1].lstrip()
     return desc[0].lower() + desc[1:]
 
 class NoOptsCommand(Command):
     """
-    Abstract class for simple distutils command implementation
+    Abstract class for simple ``distutils`` command implementation
     """
     def initialize_options(self):
         """
@@ -130,14 +133,16 @@ class BuildDoc(NoOptsCommand):
     """
     Build project documentation
 
-    @ivar force: Force documentation generation
+    :Ivariables:
+        force
+            Force documentation generation
     """
     description = gen_desc(__doc__)
     user_options = [
         ('force', 'f',
          "Force documentation generation"),
-    ] #: C{BuildDoc}'s option mapping
-    boolean_options = ['force'] #: C{BuildDoc}'s boolean options
+    ] #: `BuildDoc`'s option mapping
+    boolean_options = ['force'] #: `BuildDoc` class' boolean options
 
     def initialize_options(self):
         """
@@ -164,12 +169,13 @@ class BuildDoc(NoOptsCommand):
                                content_offset, block_text, state,
                                state_machine):
             """
-            Code colourising directive for docutils
+            Code colourising directive for ``docutils``
             """
             try:
                 lexer = get_lexer_by_name(arguments[0])
             except ValueError:
-                # no lexer found - use the text one instead of an exception
+                # no lexer found - use the text one instead of raising an
+                # exception
                 lexer = get_lexer_by_name('text')
             parsed = highlight(u'\n'.join(content), lexer, pygments_formatter)
             return [nodes.raw('', parsed, format='html')]
@@ -229,8 +235,11 @@ class HgSdist(sdist):
     """
     Create a source distribution tarball
 
-    @see: C{sdist}
-    @ivar repo: Mercurial repository object
+    :see: `sdist`
+
+    :Ivariables:
+        repo
+            Mercurial repository object
     """
     description = gen_desc(__doc__)
 
@@ -320,7 +329,7 @@ class MyClean(clean):
     """
     Clean built and temporary files
 
-    @see: C{clean}
+    :see: `clean`
     """
     description = gen_desc(__doc__)
 
@@ -370,7 +379,7 @@ class TestDoc(MyTest):
     """
     Test documentation's code examples
 
-    @see: C{MyTest}
+    :see: `MyTest`
     """
     description = gen_desc(__doc__)
 
@@ -391,9 +400,9 @@ class TestDoc(MyTest):
 
 class TestCode(MyTest):
     """
-    Test script and module's doctest examples
+    Test script and module's ``doctest`` examples
 
-    @see: C{MyTest}
+    :see: `MyTest`
     """
     description = gen_desc(__doc__)
 
