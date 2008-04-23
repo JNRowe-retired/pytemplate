@@ -115,7 +115,7 @@ def gen_desc(doc):
     :return: Description string suitable for ``Command`` class's description
 
     """
-    desc = doc.splitlines()[1].lstrip()
+    desc = doc.splitlines()[0].lstrip()
     return desc[0].lower() + desc[1:]
 
 
