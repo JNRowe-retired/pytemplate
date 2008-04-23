@@ -400,9 +400,9 @@ class TestCode(MyTest):
             module = os.path.splitext(filename)[0].replace("/", ".")
             if module.endswith("__init__"):
                 module = module[:-9]
-            fails, tests = doctest.testmod(sys.modules[module],
-                                           optionflags=self.doctest_opts,
-                                           extraglobs=self.extraglobs)
+            fails = doctest.testmod(sys.modules[module],
+                                    optionflags=self.doctest_opts,
+                                    extraglobs=self.extraglobs)[0]
             if self.exit_on_fail and not fails == 0:
                 sys.exit(1)
         if hasattr(__pkg_data__, "TestCode_run"):
