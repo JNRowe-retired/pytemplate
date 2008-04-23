@@ -31,3 +31,5 @@ CLASSIFIERS = []
 
 GRAPH_TYPE = None
 
+TEST_EXTRAGLOBS = ["pymetar", ]
+
