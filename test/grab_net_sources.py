@@ -1,9 +1,7 @@
 #! /usr/bin/python -tt
 # vim: set sw=4 sts=4 et tw=80 fileencoding=utf-8:
 #
-"""
-grab_net_sources - Fetch sources for tests
-"""
+"""grab_net_sources - Fetch sources for tests"""
 # Copyright (C) 2007-2008  James Rowe;
 # All rights reserved.
 #
@@ -37,12 +35,12 @@ SOURCES = [
 data_file = lambda name: os.path.join(os.path.dirname(__file__), "data",
                                       os.path.basename(urlparse(name).path))
 def main(argv=None):
-    """
-    Main script handler
+    """Main script handler
 
     :Parameters:
         argv : `list`
             Command line arguments
+
     """
     if not argv:
         argv = sys.argv

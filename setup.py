@@ -74,12 +74,12 @@ if sys.version_info < (2, 5, 0, 'final'):
 #{ Generated data file functions
 
 def write_changelog(filename):
-    """
-    Generate a ChangeLog from Mercurial repo
+    """Generate a ChangeLog from Mercurial repo
 
     :Parameters:
         filename : `str`
             Filename to write ChangeLog to
+
     """
     if os.path.isdir(".hg"):
         check_call(["hg", "log", "--exclude", ".be/", "--no-merges",
@@ -90,12 +90,12 @@ def write_changelog(filename):
         return False
 
 def write_manifest(files):
-    """
-    Generate a MANIFEST file
+    """Generate a MANIFEST file
 
     :Parameters:
         files : `list`
             Filenames to include in MANIFEST
+
     """
     manifest = open("MANIFEST", "w")
     manifest.write("\n".join(sorted(files)) + "\n")
@@ -106,45 +106,40 @@ def write_manifest(files):
 #{ Implementation utilities
 
 def gen_desc(doc):
-    """
-    Pull simple description from docstring
+    """Pull simple description from docstring
 
     :Parameters:
         doc : `str`
             Docstring to manipulate
     :rtype: str
     :return: Description string suitable for ``Command`` class's description
+
     """
     desc = doc.splitlines()[1].lstrip()
     return desc[0].lower() + desc[1:]
 
 
 class NoOptsCommand(Command):
-    """
-    Abstract class for simple ``distutils`` command implementation
-    """
+    """Abstract class for simple ``distutils`` command implementation"""
+
     def initialize_options(self):
-        """
-        Set default values for options
-        """
+        """Set default values for options"""
         pass
 
     def finalize_options(self):
-        """
-        Finalize, and test validity, of options
-        """
+        """Finalize, and test validity, of options"""
         pass
 
 #}
 
 
 class BuildDoc(NoOptsCommand):
-    """
-    Build project documentation
+    """Build project documentation
 
     :Ivariables:
         force
             Force documentation generation
+
     """
     description = gen_desc(__doc__)
     user_options = [
@@ -154,15 +149,11 @@ class BuildDoc(NoOptsCommand):
     boolean_options = ['force'] #: `BuildDoc` class' boolean options
 
     def initialize_options(self):
-        """
-        Set default values for options
-        """
+        """Set default values for options"""
         self.force = False
 
     def run(self):
-        """
-        Build the required documentation
-        """
+        """Build the required documentation"""
         if not DOCUTILS:
             raise DistutilsModuleError("docutils import failed, "
                                        "can't generate documentation")
@@ -177,9 +168,7 @@ class BuildDoc(NoOptsCommand):
         def pygments_directive(name, arguments, options, content, lineno,
                                content_offset, block_text, state,
                                state_machine):
-            """
-            Code colourising directive for ``docutils``
-            """
+            """Code colourising directive for ``docutils``"""
             try:
                 lexer = get_lexer_by_name(arguments[0])
             except ValueError:
@@ -245,21 +234,19 @@ class BuildDoc(NoOptsCommand):
 #{ Distribution utilities
 
 class HgSdist(sdist):
-    """
-    Create a source distribution tarball
+    """Create a source distribution tarball
 
     :see: `sdist`
 
     :Ivariables:
         repo
             Mercurial repository object
+
     """
     description = gen_desc(__doc__)
 
     def initialize_options(self):
-        """
-        Set default values for options
-        """
+        """Set default values for options"""
         sdist.initialize_options(self)
         if not MERCURIAL:
             raise DistutilsModuleError("Mercurial import failed, "
@@ -275,9 +262,7 @@ class HgSdist(sdist):
             sys.exit(1)
 
     def get_file_list(self):
-        """
-        Generate MANIFEST file contents from Mercurial tree
-        """
+        """Generate MANIFEST file contents from Mercurial tree"""
         changeset = self.repo.changectx()
         # Include all but Bugs Everywhere data from repo in tarballs
         manifest_files = filter(lambda s: not s.startswith(".be/"),
@@ -292,32 +277,24 @@ class HgSdist(sdist):
         sdist.get_file_list(self)
 
     def make_distribution(self):
-        """
-        Update versioning data and build distribution
-        """
+        """Update versioning data and build distribution"""
         execute(self.write_version, ())
         execute(write_changelog, ("ChangeLog", ))
         sdist.make_distribution(self)
 
     def write_version(self):
-        """
-        Store the current Mercurial changeset in a file
-        """
+        """Store the current Mercurial changeset in a file"""
         repo_id = hg.short(self.repo.lookup("tip"))
         write_file(".hg_version", ("%s tip\n" % repo_id, ))
 
 
 class Snapshot(NoOptsCommand):
-    """
-    Build a daily snapshot tarball
-    """
+    """Build a daily snapshot tarball"""
     description = gen_desc(__doc__)
     user_options = []
 
     def run(self):
-        """
-        Prepare and create tarball
-        """
+        """Prepare and create tarball"""
         snapshot_name = "%s-%s" % (__pkg_data__.MODULE.__name__,
                                    strftime("%Y-%m-%d"))
         snapshot_location = "dist/%s" % snapshot_name
@@ -331,9 +308,7 @@ class Snapshot(NoOptsCommand):
 
     @staticmethod
     def generate_tree(snapshot_name):
-        """
-        Generate a clean Mercurial clone
-        """
+        """Generate a clean Mercurial clone"""
         check_call(["hg", "archive", snapshot_name])
         shutil.rmtree("%s/.be" % snapshot_name)
 
@@ -341,17 +316,15 @@ class Snapshot(NoOptsCommand):
 
 
 class MyClean(clean):
-    """
-    Clean built and temporary files
+    """Clean built and temporary files
 
     :see: `clean`
+
     """
     description = gen_desc(__doc__)
 
     def run(self):
-        """
-        Remove built and temporary files
-        """
+        """Remove built and temporary files"""
         clean.run(self)
         if self.all:
             for filename in [".hg_version", "ChangeLog", "MANIFEST"] \
@@ -367,9 +340,7 @@ class MyClean(clean):
 #{ Testing utilities
 
 class MyTest(NoOptsCommand):
-    """
-    Abstract class for test command implementations
-    """
+    """Abstract class for test command implementations"""
     user_options = [
         ('exit-on-fail', 'x',
          "Exit on first failure"),
@@ -377,9 +348,7 @@ class MyTest(NoOptsCommand):
     boolean_options = ['exit-on-fail']
 
     def initialize_options(self):
-        """
-        Set default values for options
-        """
+        """Set default values for options"""
         self.exit_on_fail = False
         self.doctest_opts = doctest.REPORT_UDIFF|doctest.NORMALIZE_WHITESPACE
         self.extraglobs = {
@@ -393,17 +362,15 @@ class MyTest(NoOptsCommand):
 
 
 class TestDoc(MyTest):
-    """
-    Test documentation's code examples
+    """Test documentation's code examples
 
     :see: `MyTest`
+
     """
     description = gen_desc(__doc__)
 
     def run(self):
-        """
-        Run the documentation code examples
-        """
+        """Run the documentation code examples"""
         for filename in sorted(['README'] + glob("doc/*.txt")):
             print('Testing documentation file %s' % filename)
             fails = doctest.testfile(filename,
@@ -416,17 +383,15 @@ class TestDoc(MyTest):
 
 
 class TestCode(MyTest):
-    """
-    Test script and module's ``doctest`` examples
+    """Test script and module's ``doctest`` examples
 
     :see: `MyTest`
+
     """
     description = gen_desc(__doc__)
 
     def run(self):
-        """
-        Run the source's docstring code examples
-        """
+        """Run the source's docstring code examples"""
         files = glob("%s/*.py" % __pkg_data__.MODULE.__name__)
         files.extend([os.path.basename(i.__file__)
                       for i in __pkg_data__.SCRIPTS])
