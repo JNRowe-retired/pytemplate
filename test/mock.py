@@ -133,8 +133,7 @@ class pymetar(ModuleType):
 
         @staticmethod
         def FetchReport():
-            """Mock ``FetchReport`` function to pass tests
-            """
+            """Mock ``FetchReport`` function to pass tests"""
             pass
 
 
