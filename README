@@ -50,6 +50,13 @@ directory contains the preprocessed epydoc_ output for reference.
 All the examples in the ``doc/`` directory can be executed using 
 ``./setup.py test_doc``.
 
+Thanks
+------
+
+The following people have submitted patches, testing and feedback:
+
+    * You? - Your name here
+
 API Stability
 -------------
 
