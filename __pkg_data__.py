@@ -1,4 +1,4 @@
-#! /usr/bin/python -tt
+#
 # vim: set sw=4 sts=4 et tw=80 fileencoding=utf-8:
 #
 """Per-package configuration data"""
@@ -18,18 +18,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import sys
+
 import modname
 MODULE = modname
 
-SCRIPTS = []
+import script
+SCRIPTS = [script, ]
 
-DESCRIPTION = ""
-LONG_DESCRIPTION = """"""
+DESCRIPTION = modname.__doc__.splitlines()[0][:-1]
+LONG_DESCRIPTION = "\n\n".join(modname.__doc__.split("\n\n")[1:3])
 
 KEYWORDS = []
 CLASSIFIERS = []
 
+OBSOLETES = []
+
 GRAPH_TYPE = None
 
-TEST_EXTRAGLOBS = ["pymetar", ]
-
+TEST_EXTRAGLOBS = []
