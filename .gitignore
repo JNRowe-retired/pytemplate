@@ -1,0 +1,13 @@
+build/
+dist/
+html/
+
+.coverage
+.git_version
+.hg_version
+*.py[co]
+*.html
+
+ChangeLog
+MANIFEST
+
