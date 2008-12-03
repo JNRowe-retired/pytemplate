@@ -26,8 +26,8 @@ MODULE = modname
 import script
 SCRIPTS = [script, ]
 
-DESCRIPTION = modname.__doc__.splitlines()[0][:-1]
-LONG_DESCRIPTION = "\n\n".join(modname.__doc__.split("\n\n")[1:3])
+DESCRIPTION = MODULE.__doc__.splitlines()[0][:-1]
+LONG_DESCRIPTION = "\n\n".join(MODULE.__doc__.split("\n\n")[1:3])
 
 KEYWORDS = []
 CLASSIFIERS = []
