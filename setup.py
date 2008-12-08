@@ -44,7 +44,6 @@ from distutils.file_util import write_file
 from distutils.util import execute
 from email.utils import parseaddr
 from glob import glob
-from re import match
 from subprocess import (check_call, PIPE, Popen)
 
 try:
@@ -359,8 +358,8 @@ class ScmSdist(sdist):
             if not len(output) == 0:
                 raise DistutilsFileError("Uncommitted changes!")
         elif __pkg_data__.SCM == "git":
-            output = call_scm("status").splitlines()
-            if match("(modified|deleted|new file)", output):
+            output = call_scm("diff --name-status")
+            if not len(output) == 0:
                 raise DistutilsFileError("Uncommitted changes!")
         else:
             raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
@@ -397,7 +396,7 @@ class ScmSdist(sdist):
             write_file(".hg_version", ("%s tip\n" % repo_id, ))
         elif __pkg_data__.SCM == "git":
             output = call_scm("log -n 1 --pretty=format:%T HEAD")
-            write_file(".git_version", output)
+            write_file(".git_version", (output, ))
         else:
             raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
 
