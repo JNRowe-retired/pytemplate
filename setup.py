@@ -233,7 +233,7 @@ class BuildDoc(NoOptsCommand):
         pygments_directive.content = 1
         directives.register_directive('code-block', pygments_directive)
 
-        for source in sorted(["NEWS", "README"] + glob('doc/*.txt')):
+        for source in sorted(["NEWS.rst", "README.rst"] + glob('doc/*.rst')):
             dest = os.path.splitext(source)[0] + '.html'
             if self.force or newer(source, dest):
                 print('Building file %s' % dest)
@@ -362,16 +362,16 @@ class ScmSdist(sdist):
     def make_distribution(self):
         """Update versioning data and build distribution"""
         news_format = "%s - " % __pkg_data__.MODULE.__version__
-        news_matches = (line for line in open("NEWS")
+        news_matches = (line for line in open("NEWS.rst")
                         if line.startswith(news_format))
         if not any(news_matches):
-            print("NEWS entry for `%s' missing"
+            print("NEWS.rst entry for `%s' missing"
                   % __pkg_data__.MODULE.__version__)
             sys.exit(1)
         news_time = time.mktime(time.strptime(news_matches[0].split()[-1],
                                 "%Y-%m-%d"))
         if time.time() - news_time > 86400 and not self.force_build:
-            print("NEWS entry is older than a day, version may not have been "
+            print("NEWS.rst entry is older than a day, version may not have been "
                   "updated")
             sys.exit(1)
         execute(self.write_version, ())
@@ -482,7 +482,7 @@ class MyTest(NoOptsCommand):
             test_func = doctest.testmod
             hook = "TestCode_run"
         else:
-            files = ['README'] + glob("doc/*.txt")
+            files = ['README.rst'] + glob("doc/*.rst")
             test_func = doctest.testfile
             hook = "TestDoc_run"
         tot_fails = 0
