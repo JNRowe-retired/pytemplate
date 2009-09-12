@@ -245,7 +245,7 @@ class BuildDoc(NoOptsCommand):
             if sys.version_info[:2] >= (3, 0):
                 parsed = highlight('\n'.join(content), lexer, pygments_formatter)
             else:
-                parsed = highlight(unicode('\n'.join(content)), lexer, HTMLFormatter())
+                parsed = highlight(unicode('\n'.join(content)), lexer, HtmlFormatter())
             return [nodes.raw('', parsed, format='html')]
         pygments_directive.arguments = (1, 0, 1)
         pygments_directive.content = 1
