@@ -42,9 +42,24 @@ from distutils.dep_util import newer
 from distutils.errors import (DistutilsFileError, DistutilsModuleError)
 from distutils.file_util import write_file
 from distutils.util import execute
-from email.utils import parseaddr
+
+try:
+    from email.utils import parseaddr
+except ImportError: # Python2.4
+    from email.Utils import parseaddr
+
 from glob import glob
-from subprocess import (check_call, PIPE, Popen)
+
+try:
+    from subprocess import check_call
+except ImportError: # Python2.4
+    from subprocess import call as sp_call
+    def check_call(*args, **kwargs):
+        retval = sp_call(*args, **kwargs)
+        if retval:
+            raise OSError("Command execution failed!")
+
+from subprocess import (PIPE, Popen)
 
 try:
     from docutils.core import publish_cmdline
@@ -72,8 +87,8 @@ import test
 BASE_URL = "http://www.jnrowe.ukfsn.org/" #: Base URL for links
 PROJECT_URL = "%sprojects/%s.html" % (BASE_URL, __pkg_data__.MODULE.__name__)
 
-if sys.version_info < (2, 5, 0, 'final'):
-    raise SystemError("Requires Python v2.5+")
+if sys.version_info < (2, 4, 0, 'final'):
+    raise SystemError("Requires Python v2.4+")
 
 #{ Generated data file functions
 
@@ -147,16 +162,19 @@ def call_scm(options, *args, **kwargs):
         raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
     try:
         process = Popen(options, *args, **kwargs)
-    except OSError as e:
-        print("Error calling `%s`, is %s installed? [%s]"
-              % (options[0], __pkg_data__.SCM, e))
-        sys.exit(1)
+    except OSError:
+        print("Error calling `%s`, is %s installed?"
+              % (options[0], __pkg_data__.SCM))
+        raise
     process.wait()
     if not process.returncode == 0:
         print("`%s' completed with %i return code"
               % (options[0], process.returncode))
         sys.exit(process.returncode)
-    return True if redirect else process.stdout.read()
+    if redirect:
+        return True
+    else:
+        return process.stdout.read()
 
 def gen_desc(doc):
     """Pull simple description from docstring
@@ -362,8 +380,8 @@ class ScmSdist(sdist):
     def make_distribution(self):
         """Update versioning data and build distribution"""
         news_format = "%s - " % __pkg_data__.MODULE.__version__
-        news_matches = (line for line in open("NEWS")
-                        if line.startswith(news_format))
+        news_matches = [line for line in open("NEWS")
+                        if line.startswith(news_format)]
         if not any(news_matches):
             print("NEWS entry for `%s' missing"
                   % __pkg_data__.MODULE.__version__)
@@ -466,13 +484,14 @@ class MyTest(NoOptsCommand):
         self.exit_on_fail = False
         self.doctest_opts = doctest.REPORT_UDIFF|doctest.NORMALIZE_WHITESPACE
         self.extraglobs = {
-            "open": test.mock.open,
-            "os": test.mock.os,
             "urllib": test.mock.urllib,
         } #: Mock objects to include for test framework
         if hasattr(__pkg_data__, "TEST_EXTRAGLOBS"):
-            for value in __pkg_data__.TEST_EXTRAGLOBS:
-                self.extraglobs[value] = getattr(test.mock, value)
+            for key, value in __pkg_data__.TEST_EXTRAGLOBS.items():
+                if value:
+                    self.extraglobs[key] = value
+                else:
+                    self.extraglobs[key] = getattr(test.mock, key)
 
     def run(self):
         """Run doctest tests"""

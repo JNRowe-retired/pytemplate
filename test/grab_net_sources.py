@@ -24,8 +24,13 @@ import gzip
 import os
 import sys
 import tempfile
-import urllib
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse
+    from urllib.request import (urlopen, urlretrieve)
+except ImportError:
+    from urlparse import urlparse
+    from urllib import (urlopen, urlretrieve)
+
 
 SOURCES = [
     "http://cvs.savannah.gnu.org/viewvc/*checkout*/miscfiles/cities.dat?root=miscfiles",
