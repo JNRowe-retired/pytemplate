@@ -1,8 +1,5 @@
-``module``
-==========
-
-quick description
------------------
+``module``` - quick description
+===============================
 
 Introduction
 ------------
