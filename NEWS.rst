@@ -9,8 +9,8 @@ User-visible changes
 0.1.0 - 2008-xx-xx
 ------------------
 
-  * Initial release
+    * Initial release
 
 ..
-    :vim: set ft=rst ts=2 sw=2 et:
+    :vim: set ft=rst ts=4 sw=4 et:
 
