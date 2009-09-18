@@ -106,7 +106,7 @@ a minimal testcase, or even better a patch!
 .. _epydoc: http://epydoc.sourceforge.net/
 .. _PEP 8: http://www.python.org/dev/peps/pep-0008/
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
-.. _mail: jnrowe@ukfsn.org
+.. _mail: jnrowe@gmail.com
 
 ..
     :vim: set ft=rst ts=4 sw=4 et:
