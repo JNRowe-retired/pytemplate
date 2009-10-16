@@ -99,7 +99,7 @@ Bugs
 ----
 
 If you find any problems, bugs or just have a question about this
-package either drop me an email_ or file an issue_.  Locally bugs are
+package either drop me an mail_ or file an issue_.  Locally bugs are
 managed with `Bugs Everywhere`_, so if you're working with a clone of
 the repository you can report, list and fix bugs using ``be``.
 
