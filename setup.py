@@ -29,7 +29,8 @@ try:
     from setuptools.command.sdist import (finders, sdist)
     from setuptools import Command
     from distutils.util import convert_path
-    SETUPTOOLS = True #: True if ``setuptools`` is installed
+    #: True if ``setuptools`` is installed
+    SETUPTOOLS = True
 except ImportError:
     from distutils.core import setup
     from distutils.command.sdist import sdist
@@ -65,14 +66,16 @@ try:
     from docutils.core import publish_cmdline
     from docutils import nodes
     from docutils.parsers.rst import directives
-    DOCUTILS = True #: True if ``docutils`` module is available
+    #: True if ``docutils`` module is available
+    DOCUTILS = True
 except ImportError:
     DOCUTILS = False
 try:
     from pygments import highlight
     from pygments.lexers import get_lexer_by_name
     from pygments.formatters import HtmlFormatter
-    PYGMENTS = True #: True if ``pygments`` module is available
+    #: True if ``pygments`` module is available
+    PYGMENTS = True
 except ImportError:
     PYGMENTS = False
 try:
@@ -95,9 +98,8 @@ if sys.version_info < (2, 4, 0, 'final'):
 def write_changelog(filename):
     """Generate a ChangeLog from SCM repo
 
-    :Parameters:
-        filename : `str`
-            Filename to write ChangeLog to
+    :type filename: ``str``
+    :param filename: Filename to write :file:`ChangeLog` to
 
     """
     if __pkg_data__.SCM == "hg" and os.path.isdir(".hg"):
@@ -121,11 +123,10 @@ def write_changelog(filename):
             os.unlink(filename)
 
 def write_manifest(files):
-    """Generate a MANIFEST file
+    """Generate a :file:`MANIFEST` file
 
-    :Parameters:
-        files : `list`
-            Filenames to include in MANIFEST
+    :type files: ``list``
+    :param files: Filenames to include in :file:`MANIFEST`
 
     """
     open("MANIFEST", "w").write("\n".join(sorted(files)) + "\n")
@@ -137,14 +138,13 @@ def write_manifest(files):
 def call_scm(options, *args, **kwargs):
     """SCM command line tools
 
-    :Parameters:
-        options : `list`
-            SCM command options
-        *args : `list`
-            Positional arguments for ``subprocess.Popen``
-        **kwargs : `dict`
-            Keyword arguments for ``subprocess.Popen``
-    :rtype: `str`
+    :type options: ``list``
+    :param options: SCM command options
+    :type args: ``list``
+    :param args: Positional arguments for ``subprocess.Popen``
+    :type kwargs: ``dict``
+    :param kwargs: Keyword arguments for ``subprocess.Popen``
+    :rtype: ``str``
     :return: SCM command output
     :raise OSError: SCM command not found
     :raise ValueError: Unknown SCM type
@@ -179,11 +179,11 @@ def call_scm(options, *args, **kwargs):
 def gen_desc(doc):
     """Pull simple description from docstring
 
-    :Parameters:
-        doc : `str`
-            Docstring to manipulate
-    :rtype: str
-    :return: Description string suitable for ``Command`` class's description
+    :type doc: ``str``
+    :param doc: Docstring to manipulate
+    :rtype: ``str``
+    :return: Description string suitable for :class:`Command` class's
+        description
 
     """
     desc = doc.splitlines()[0].lstrip()
@@ -191,7 +191,7 @@ def gen_desc(doc):
 
 
 class NoOptsCommand(Command):
-    """Abstract class for simple ``distutils`` command implementation"""
+    """Abstract class for simple :mod:`distutils` command implementation"""
 
     def initialize_options(self):
         """Set default values for options"""
@@ -207,17 +207,19 @@ class NoOptsCommand(Command):
 class BuildDoc(NoOptsCommand):
     """Build project documentation
 
-    :Ivariables:
-        force
-            Force documentation generation
+    .. attribute:: force
+
+       Force documentation generation
 
     """
     description = gen_desc(__doc__)
+    #: `BuildDoc`'s option mapping
     user_options = [
         ('force', 'f',
          "force documentation generation"),
-    ] #: `BuildDoc`'s option mapping
-    boolean_options = ['force'] #: `BuildDoc` class' boolean options
+    ]
+    #: `BuildDoc` class' boolean options
+    boolean_options = ['force']
 
     def initialize_options(self):
         """Set default values for options"""
@@ -237,7 +239,7 @@ class BuildDoc(NoOptsCommand):
         def pygments_directive(name, arguments, options, content, lineno,
                                content_offset, block_text, state,
                                state_machine):
-            """Code colourising directive for ``docutils``"""
+            """Code colourising directive for :mod:`docutils`"""
             # Previously we tested to see if the lexer existed and set
             # a default of text if it didn't, but this hides bugs such as a typo
             # in the directive
@@ -313,11 +315,12 @@ def scm_finder(*none):
     Without this it *appears* to work, but only distributes a very small subset
     of the package.
 
-    :see: `MySdist.get_file_list`
+    .. seealso::
 
-    :Parameters:
-        none : any
-            Just for compatibility
+       :class:`MySdist.get_file_list`
+
+    :type none: any
+    :param none: Just for compatibility
     """
     # setuptools documentation says this shouldn't be a hard fail, but we won't
     # do that as it makes builds entirely unpredictable
@@ -345,17 +348,20 @@ if SETUPTOOLS:
 class ScmSdist(sdist):
     """Create a source distribution tarball
 
-    :see: `sdist`
+    .. seealso::
 
-    :Ivariables:
-        repo
-            SCM repository object
+       :class:`sdist`
+
+    .. attribute: repo
+
+       SCM repository object
 
     """
     description = gen_desc(__doc__)
+    #: `ScmSdist`'s option mapping
     user_options = [
         ('force-build', 'b', "force build with stale version number"),
-    ] + sdist.user_options #: `ScmSdist`'s option mapping
+    ] + sdist.user_options
     boolean_options = ['force-build']
 
     def initialize_options(self):
@@ -412,7 +418,8 @@ class ScmSdist(sdist):
 class Snapshot(NoOptsCommand):
     """Build a daily snapshot tarball"""
     description = gen_desc(__doc__)
-    user_options = [] #: `Snapshot`'s option mapping
+    #: `Snapshot`'s option mapping
+    user_options = []
 
     def run(self):
         """Prepare and create tarball"""
@@ -449,7 +456,9 @@ class Snapshot(NoOptsCommand):
 class MyClean(clean):
     """Clean built and temporary files
 
-    :see: `clean`
+    .. seealso::
+
+       :class:`clean`
 
     """
     description = gen_desc(__doc__)
@@ -473,19 +482,21 @@ class MyClean(clean):
 
 class MyTest(NoOptsCommand):
     """Abstract class for test command implementations"""
+    #: `MyTest`'s option mapping
     user_options = [
         ('exit-on-fail', 'x',
          "exit on first failure"),
-    ] #: `MyTest`'s option mapping
+    ]
     boolean_options = ['exit-on-fail']
 
     def initialize_options(self):
         """Set default values for options"""
         self.exit_on_fail = False
         self.doctest_opts = doctest.REPORT_UDIFF|doctest.NORMALIZE_WHITESPACE
+        #: Mock objects to include for test framework
         self.extraglobs = {
             "urllib": test.mock.urllib,
-        } #: Mock objects to include for test framework
+        }
         if hasattr(__pkg_data__, "TEST_EXTRAGLOBS"):
             for key, value in __pkg_data__.TEST_EXTRAGLOBS.items():
                 if value:
@@ -531,15 +542,19 @@ class MyTest(NoOptsCommand):
 class TestDoc(MyTest):
     """Test documentation's code examples
 
-    :see: `MyTest`
+    .. seealso:
+
+       :class:`MyTest`
 
     """
     description = gen_desc(__doc__)
 
 class TestCode(MyTest):
-    """Test script and module's ``doctest`` examples
+    """Test script and module's :mod:`doctest` examples
 
-    :see: `MyTest`
+    .. seealso::
+
+       :class:`MyTest`
 
     """
     description = gen_desc(__doc__)
