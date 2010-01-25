@@ -11,6 +11,4 @@ User-visible changes
 
     * Initial release
 
-..
-    :vim: set ft=rst ts=4 sw=4 et:
-
+.. vim: set ft=rst ts=8 sw=4 tw=80 et:
