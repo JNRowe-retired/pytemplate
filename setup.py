@@ -82,8 +82,9 @@ except ImportError:
 import __pkg_data__
 import test
 
-BASE_URL = "http://github.com/jnrowe/" #: Base URL for links
-PROJECT_URL = "%s%s/" % (BASE_URL, __pkg_data__.MODULE.__name__)
+#: Base URL for links
+BASE_URL = "http://github.com/JNRowe/"
+PROJECT_URL = "%s%s" % (BASE_URL, __pkg_data__.MODULE.__name__)
 
 if sys.version_info < (2, 4, 0, 'final'):
     raise SystemError("Requires Python v2.4+")
