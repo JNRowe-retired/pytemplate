@@ -41,8 +41,7 @@ here goes:
     True
 
 All the class definitions, methods and independent functions contain
-hopefully useful usage examples in the docstrings.  The ``html/``
-directory contains the preprocessed epydoc_ output for reference.
+hopefully useful usage examples in the docstrings.
 
 All the examples in the ``doc/`` directory can be executed using 
 ``./setup.py test_doc``.
@@ -79,9 +78,9 @@ just want to convince me that your style is better.
     * While support for Python versions prior to v2.5 may be added in
       the future if such a need were to arise, you are encouraged to use
       v2.5 features now.
-    * All new classes and methods should be accompanied by new
-      ``doctest`` examples, and epydoc_'s epytext formatted descriptions
-      if at all possible.
+    * All new classes and methods should be accompanied by new ``doctest``
+      examples, and Sphinx_'s ``autodoc`` formatted descriptions if at all
+      possible.
     * Tests *must not* span network boundaries, see ``test.mock`` for
       workarounds.
     * ``doctest`` tests in modules are only for unit testing in general,
@@ -108,12 +107,12 @@ reproduce the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _Python: http://www.python.org/
-.. _epydoc: http://epydoc.sourceforge.net/
 .. _PEP 8: http://www.python.org/dev/peps/pep-0008/
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _mail: jnrowe@gmail.com
 .. _issue: http://github.com/JNRowe/``module``/issues
 .. _ditz: http://ditz.rubyforge.org/
+.. _Sphinx: http://sphinx.pocoo.org/
 
 ..
     :vim: set ft=rst ts=4 sw=4 et:
