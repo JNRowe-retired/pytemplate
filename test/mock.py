@@ -166,4 +166,3 @@ class pymetar(ModuleType):
 
                 """
                 return "2007-11-28 19:20:00Z"
-

@@ -35,4 +35,3 @@ GRAPH_TYPE = None
 TEST_EXTRAGLOBS = {}
 
 SCM = "git"
-

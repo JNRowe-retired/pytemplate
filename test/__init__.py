@@ -39,4 +39,3 @@ __doc__ += """
 """ % ((__version__, ) + parseaddr(__author__) + (__copyright__, __license__))
 
 from test import mock
-

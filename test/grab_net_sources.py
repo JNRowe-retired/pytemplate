@@ -1,5 +1,4 @@
 #! /usr/bin/python -tt
-#
 """grab_net_sources - Fetch sources for tests"""
 # Copyright (C) 2007-2011  James Rowe <jnrowe@gmail.com>
 # All rights reserved.
@@ -108,4 +107,3 @@ def main(argv=None):
 
 if __name__ == '__main__':
     main(sys.argv)
-
