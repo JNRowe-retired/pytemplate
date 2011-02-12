@@ -46,6 +46,11 @@ hopefully useful usage examples in the docstrings.
 All the examples in the ``doc/`` directory can be executed using 
 ``./setup.py test_doc``.
 
+Roadmap
+-------
+
+<Ideas for future versions>
+
 Thanks
 ------
 
