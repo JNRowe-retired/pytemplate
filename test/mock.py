@@ -1,6 +1,6 @@
 #
 """mock - Mock objects for doctest code snippets"""
-# Copyright (C) 2007-2011  James Rowe
+# Copyright (C) 2007-2011  James Rowe <jnrowe@gmail.com>
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
