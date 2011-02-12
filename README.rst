@@ -113,5 +113,3 @@ reproduce the problem, or even better a patch!
 .. _issue: http://github.com/JNRowe/``module``/issues
 .. _ditz: http://ditz.rubyforge.org/
 .. _Sphinx: http://sphinx.pocoo.org/
-
-.. vim: set ft=rst ts=8 sw=4 tw=80 et:
