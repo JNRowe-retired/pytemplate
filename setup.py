@@ -259,7 +259,7 @@ class BuildDoc(NoOptsCommand):
                                       '--generator',
                                       '--stylesheet-path=doc/docutils.css',
                                       '--link-stylesheet', source, dest])
-        print "Building sphinx tree"
+        print("Building sphinx tree")
         if not os.path.isdir("doc/html"):
             os.mkdir("doc/html")
         check_call(["sphinx-build", "-b", "html", "-d", "doc/source/.doctrees",
