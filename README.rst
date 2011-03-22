@@ -80,8 +80,5 @@ the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _Python: http://www.python.org/
-.. _PEP 8: http://www.python.org/dev/peps/pep-0008/
-.. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _mail: jnrowe@gmail.com
 .. _issue: http://github.com/JNRowe/``module``/issues
-.. _Sphinx: http://sphinx.pocoo.org/
