@@ -112,6 +112,7 @@ To make a release:
 1. Run all tests
 
    - lettuce_
+   - nose_
    - shelldoctest_
 
 2. Update ``NEWS.rst`` and ``{{ module }}/_version.py``
@@ -134,5 +135,6 @@ To make a release:
 .. _GitHub: https://github.com/
 .. _git documentation: http://www.kernel.org/pub/software/scm/git/docs/
 .. _lettuce: http://lettuce.it/
+.. _nose: http://pypi.python.org/pypi/nose
 .. _shelldoctest: http://pypi.python.org/pypi/shelldoctest/
 .. _PyPI: http://pypi.python.org/pypi
