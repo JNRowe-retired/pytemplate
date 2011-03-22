@@ -99,12 +99,10 @@ def write_changelog(filename):
     """
     if __pkg_data__.SCM == "hg" and os.path.isdir(".hg"):
         print('Building ChangeLog from Mercurial repository')
-        options = "log --exclude .be/ --no-merges --style changelog"
+        options = "log --no-merges --style changelog"
     elif __pkg_data__.SCM == "git" and os.path.isdir(".git"):
         print('Building ChangeLog from Git repository')
-        # Generate a file list excluding the Bugs Everywhere directory
-        output = call_scm("ls-tree --name-only HEAD")
-        files = [line for line in output.splitlines() if not line == ".be"]
+        files = call_scm("ls-tree --name-only HEAD")
         options = "log --graph --date=short --stat -- %s" % " ".join(files)
     else:
         print("Unable to build ChangeLog, dir is not a %s clone"
@@ -312,9 +310,7 @@ def scm_finder(*none):
         output = call_scm("locate")
     elif __pkg_data__.SCM == "git":
         output = call_scm("ls-tree -r --full-name --name-only HEAD")
-    # Include all but Bugs Everywhere data from repo in tarballs
-    distributed_files = [line for line in output.splitlines()
-                         if not line.startswith(".be/")]
+    distributed_files = output.splitlines()
     distributed_files.append(".%s_version" % __pkg_data__.SCM)
     distributed_files.append("ChangeLog")
     distributed_files.extend(glob("*.html"))
@@ -432,8 +428,6 @@ class Snapshot(NoOptsCommand):
             os.remove("%s.tar" % basename)
         else:
             raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
-        # Remove Bugs Everywhere data from distribution
-        shutil.rmtree("%s/.be" % snapshot_name)
 #}
 
 
