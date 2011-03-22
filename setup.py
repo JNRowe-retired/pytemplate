@@ -44,15 +44,16 @@ from distutils.util import execute
 
 try:
     from email.utils import parseaddr
-except ImportError: # Python2.4
+except ImportError:  # Python2.4
     from email.Utils import parseaddr
 
 from glob import glob
 
 try:
     from subprocess import check_call
-except ImportError: # Python2.4
+except ImportError:  # Python2.4
     from subprocess import call as sp_call
+
     def check_call(*args, **kwargs):
         retval = sp_call(*args, **kwargs)
         if retval:
@@ -87,8 +88,8 @@ PROJECT_URL = "%s%s" % (BASE_URL, __pkg_data__.MODULE.__name__)
 if sys.version_info < (2, 4, 0, 'final'):
     raise SystemError("Requires Python v2.4+")
 
-#{ Generated data file functions
 
+#{ Generated data file functions
 def write_changelog(filename):
     """Generate a ChangeLog from SCM repo
 
@@ -116,6 +117,7 @@ def write_changelog(filename):
         if os.stat(filename).st_size == 0:
             os.unlink(filename)
 
+
 def write_manifest(files):
     """Generate a :file:`MANIFEST` file
 
@@ -124,11 +126,10 @@ def write_manifest(files):
 
     """
     open("MANIFEST", "w").write("\n".join(sorted(files)) + "\n")
-
 #}
 
-#{ Implementation utilities
 
+#{ Implementation utilities
 def call_scm(options, *args, **kwargs):
     """SCM command line tools
 
@@ -170,6 +171,7 @@ def call_scm(options, *args, **kwargs):
     else:
         return process.stdout.read()
 
+
 def gen_desc(doc):
     """Pull simple description from docstring
 
@@ -194,7 +196,6 @@ class NoOptsCommand(Command):
     def finalize_options(self):
         """Finalize, and test validity, of options"""
         pass
-
 #}
 
 
@@ -234,14 +235,16 @@ class BuildDoc(NoOptsCommand):
                                content_offset, block_text, state,
                                state_machine):
             """Code colourising directive for :mod:`docutils`"""
-            # Previously we tested to see if the lexer existed and set
-            # a default of text if it didn't, but this hides bugs such as a typo
+            # Previously we tested to see if the lexer existed and set a
+            # default of text if it didn't, but this hides bugs such as a typo
             # in the directive
             lexer = get_lexer_by_name(arguments[0])
             if sys.version_info[:2] >= (3, 0):
-                parsed = highlight('\n'.join(content), lexer, pygments_formatter)
+                parsed = highlight('\n'.join(content), lexer,
+                                   pygments_formatter)
             else:
-                parsed = highlight(unicode('\n'.join(content)), lexer, HtmlFormatter())
+                parsed = highlight(unicode('\n'.join(content)), lexer,
+                                   HtmlFormatter())
             return [nodes.raw('', parsed, format='html')]
         pygments_directive.arguments = (1, 0, 1)
         pygments_directive.content = 1
@@ -288,7 +291,6 @@ class BuildDoc(NoOptsCommand):
 
 
 #{ Distribution utilities
-
 def scm_finder(*none):
     """Find files for distribution tarball
 
@@ -326,6 +328,7 @@ if SETUPTOOLS:
         finders.append((convert_path('.hg/dirstate'), scm_finder))
     elif __pkg_data__.SCM == "git":
         finders.append((convert_path('.git/index'), scm_finder))
+
 
 class ScmSdist(sdist):
     """Create a source distribution tarball
@@ -431,7 +434,6 @@ class Snapshot(NoOptsCommand):
             raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
         # Remove Bugs Everywhere data from distribution
         shutil.rmtree("%s/.be" % snapshot_name)
-
 #}
 
 
@@ -463,7 +465,6 @@ class MyClean(clean):
 
 
 #{ Testing utilities
-
 class MyTest(NoOptsCommand):
     """Abstract class for test command implementations"""
     #: `MyTest`'s option mapping
@@ -476,7 +477,7 @@ class MyTest(NoOptsCommand):
     def initialize_options(self):
         """Set default values for options"""
         self.exit_on_fail = False
-        self.doctest_opts = doctest.REPORT_UDIFF|doctest.NORMALIZE_WHITESPACE
+        self.doctest_opts = doctest.REPORT_UDIFF | doctest.NORMALIZE_WHITESPACE
         #: Mock objects to include for test framework
         self.extraglobs = {
             "urllib": test.mock.urllib,
@@ -533,6 +534,7 @@ class TestDoc(MyTest):
     """
     description = gen_desc(__doc__)
 
+
 class TestCode(MyTest):
     """Test script and module's :mod:`doctest` examples
 
@@ -542,8 +544,8 @@ class TestCode(MyTest):
 
     """
     description = gen_desc(__doc__)
-
 #}
+
 
 def main():
     # Force tests to be run, and documentation to be built, before creating a
