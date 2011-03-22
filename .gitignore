@@ -1,6 +1,8 @@
 build/
 dist/
 
-.coverage
+*.html
 *.py[co]
+
+.coverage
 MANIFEST
