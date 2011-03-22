@@ -387,8 +387,7 @@ class ScmSdist(sdist):
         if __pkg_data__.SCM == "hg":
             # This could use `hg identify' but that outputs other unused
             # information
-            output = call_scm("tip --template '{node|short}'")
-            repo_id = output[1:-1]
+            output = call_scm("tip --template '{node|short}'")[1:-1]
         elif __pkg_data__.SCM == "git":
             output = call_scm("log -n 1 --pretty=format:%T HEAD")
         else:
