@@ -74,4 +74,4 @@ reproduce the problem, or even better a patch!
 .. _Python: http://www.python.org/
 .. _termcolor: http://pypi.python.org/pypi/termcolor/
 .. _mail: jnrowe@gmail.com
-.. _issue: http://github.com/JNRowe/{{ module }}/issues
+.. _issue: https://github.com/JNRowe/{{ module }}/issues
