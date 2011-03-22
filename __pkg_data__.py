@@ -16,11 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import modname
-MODULE = modname
+import {{ module }}
+MODULE = {{ module }}
 
-import script
-SCRIPTS = [script, ]
+import {{ script}}
+SCRIPTS = [{{ script }}, ]
 
 DESCRIPTION = MODULE.__doc__.splitlines()[0][:-1]
 LONG_DESCRIPTION = "\n\n".join(MODULE.__doc__.split("\n\n")[1:3])
