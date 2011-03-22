@@ -497,7 +497,7 @@ class MyTest(NoOptsCommand):
             test_func = doctest.testmod
             hook = "TestCode_run"
         else:
-            files = ['README.rst'] + glob("doc/*.rst") + glob("doc/source/*.rst")
+            files = ['README.rst', ] + glob("doc/*.rst")
             test_func = doctest.testfile
             hook = "TestDoc_run"
         tot_fails = 0
