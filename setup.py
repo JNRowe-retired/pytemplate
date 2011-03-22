@@ -85,8 +85,8 @@ import test
 BASE_URL = "http://jnrowe.github.com/"
 PROJECT_URL = "%s%s" % (BASE_URL, __pkg_data__.MODULE.__name__)
 
-if sys.version_info < (2, 4, 0, 'final'):
-    raise SystemError("Requires Python v2.4+")
+if sys.version_info < (2, 5, 0, 'final'):
+    raise SystemError("Requires Python v2.5+")
 
 
 #{ Generated data file functions
