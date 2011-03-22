@@ -111,8 +111,8 @@ To make a release:
 
 1. Run all tests
 
-  * lettuce_
-  * shelldoctest_
+   - lettuce_
+   - shelldoctest_
 
 2. Update ``NEWS.rst`` and ``{{ module }}/_version.py``
 
@@ -122,8 +122,8 @@ To make a release:
 
 5. Check release files
 
-  * All files included
-  * Successfully passes tests from step 1
+   - All files included
+   - Successfully passes tests from step 1
 
 6. Upload to PyPI_ with ``setup.py upload``
 
