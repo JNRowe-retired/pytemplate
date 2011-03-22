@@ -152,16 +152,16 @@ def call_scm(options, *args, **kwargs):
     if __pkg_data__.SCM in ("hg", "git"):
         options.insert(0, __pkg_data__.SCM)
     else:
-        raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
+        raise ValueError("Unknown SCM type %r" % (__pkg_data__.SCM, ))
     try:
         process = Popen(options, *args, **kwargs)
     except OSError:
-        print("Error calling `%s`, is %s installed?"
+        print("Error calling %r, is %s installed?"
               % (options[0], __pkg_data__.SCM))
         raise
     process.wait()
     if not process.returncode == 0:
-        print("`%s' completed with %i return code"
+        print("%r completed with %i return code"
               % (options[0], process.returncode))
         sys.exit(process.returncode)
     if redirect:
@@ -354,7 +354,7 @@ class ScmSdist(sdist):
         elif __pkg_data__.SCM == "git":
             output = call_scm("diff --name-status")
         else:
-            raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
+            raise ValueError("Unknown SCM type %r" % (__pkg_data__.SCM, ))
         if not len(output) == 0:
             raise DistutilsFileError("Uncommitted changes!")
 
@@ -370,8 +370,8 @@ class ScmSdist(sdist):
         news_matches = [line for line in open("NEWS.rst")
                         if line.startswith(news_format)]
         if not any(news_matches):
-            print("NEWS.rst entry for `%s' missing"
-                  % __pkg_data__.MODULE.__version__)
+            print("NEWS.rst entry for %r missing"
+                  % (__pkg_data__.MODULE.__version__, ))
             sys.exit(1)
         news_time = time.mktime(time.strptime(news_matches[0].split()[-1],
                                 "%Y-%m-%d"))
@@ -392,7 +392,7 @@ class ScmSdist(sdist):
         elif __pkg_data__.SCM == "git":
             output = call_scm("log -n 1 --pretty=format:%T HEAD")
         else:
-            raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
+            raise ValueError("Unknown SCM type %r" % (__pkg_data__.SCM, ))
         write_file(".%s_version" % __pkg_data__.SCM, (output, ))
 
 
@@ -427,7 +427,7 @@ class Snapshot(NoOptsCommand):
             check_call(("tar xfv %s.tar -C %s" % (basename, "dist")).split())
             os.remove("%s.tar" % basename)
         else:
-            raise ValueError("Unknown SCM type `%s'" % __pkg_data__.SCM)
+            raise ValueError("Unknown SCM type %r" % (__pkg_data__.SCM, ))
 #}
 
 
