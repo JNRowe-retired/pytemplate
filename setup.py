@@ -82,7 +82,7 @@ import __pkg_data__
 import test
 
 #: Base URL for links
-BASE_URL = "http://github.com/JNRowe/"
+BASE_URL = "http://jnrowe.github.com/"
 PROJECT_URL = "%s%s" % (BASE_URL, __pkg_data__.MODULE.__name__)
 
 if sys.version_info < (2, 4, 0, 'final'):
