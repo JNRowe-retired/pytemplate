@@ -26,6 +26,32 @@ just want to convince me that your style is better.
 New examples for the ``doc`` directory are as appreciated as code
 changes.
 
+Release HOWTO
+-------------
+
+To make a release:
+
+    1. Run all tests
+
+      * lettuce_
+      * shelldoctest_
+
+    2. Update ``NEWS.rst`` and ``versionah/_versionah.py``
+
+    3. Tag release in repository
+
+    4. Prepare release files with ``setup.py sdist``
+
+    5. Check release files
+
+      * All files included
+      * Successfully passes tests from step 1
+
+    6. Upload to PyPI_ with ``setup.py upload``
+
 .. _PEP 8: http://www.python.org/dev/peps/pep-0008/
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
+.. _lettuce: http://lettuce.it/
+.. _shelldoctest: http://pypi.python.org/pypi/shelldoctest/
+.. _PyPI: http://pypi.python.org/pypi
