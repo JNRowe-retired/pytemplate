@@ -22,18 +22,10 @@ import shutil
 import sys
 import time
 
-try:
-    from setuptools import setup
-    from setuptools.command.sdist import (finders, sdist)
-    from setuptools import Command
-    from distutils.util import convert_path
-    #: True if ``setuptools`` is installed
-    SETUPTOOLS = True
-except ImportError:
-    from distutils.core import setup
-    from distutils.command.sdist import sdist
-    from distutils.cmd import Command
-    SETUPTOOLS = False
+from setuptools import setup
+from setuptools.command.sdist import (finders, sdist)
+from setuptools import Command
+from distutils.util import convert_path
 
 from distutils.archive_util import make_archive
 from distutils.command.clean import clean
@@ -319,7 +311,6 @@ def scm_finder(*none):
         for filename in filenames:
             distributed_files.append(os.path.join(path, filename))
     return distributed_files
-if SETUPTOOLS:
     if __pkg_data__.SCM == "hg":
         finders.append((convert_path('.hg/dirstate'), scm_finder))
     elif __pkg_data__.SCM == "git":
