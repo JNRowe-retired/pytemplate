@@ -553,6 +553,7 @@ def main():
             % (BASE_URL, __pkg_data__.MODULE.__name__,
                __pkg_data__.MODULE.__version__),
         packages=[__pkg_data__.MODULE.__name__],
+        include_package_data=True,
         scripts=["%s.py" % i.__name__ for i in __pkg_data__.SCRIPTS],
         license=__pkg_data__.MODULE.__license__,
         keywords=" ".join(__pkg_data__.KEYWORDS),
