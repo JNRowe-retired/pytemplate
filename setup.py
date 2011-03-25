@@ -564,6 +564,7 @@ def main():
             'build_doc': BuildDoc, 'clean': MyClean, 'sdist': ScmSdist,
             'snapshot': Snapshot, 'test_doc': TestDoc, 'test_code': TestCode,
         },
+        entry_points=__pkg_data__.ENTRY_POINTS,
     )
 
 if __name__ == "__main__":

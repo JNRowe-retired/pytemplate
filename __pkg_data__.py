@@ -22,6 +22,10 @@ MODULE = {{ module }}
 import {{ script}}
 SCRIPTS = [{{ script }}, ]
 
+ENTRY_POINTS = {
+    'console_scripts': [],
+}
+
 DESCRIPTION = MODULE.__doc__.splitlines()[0][:-1]
 LONG_DESCRIPTION = "\n\n".join(MODULE.__doc__.split("\n\n")[1:3])
 
