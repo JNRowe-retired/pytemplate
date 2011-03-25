@@ -573,6 +573,7 @@ CLASSIFIERS = [
 OBSOLETES = []
 
 TEST_REQUIRES = []
+INSTALL_REQUIRES = ['setuptools', ]
 
 GRAPH_TYPE = None
 

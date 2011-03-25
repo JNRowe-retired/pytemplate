@@ -566,6 +566,7 @@ def main():
             'build_doc': BuildDoc, 'clean': MyClean, 'sdist': ScmSdist,
             'snapshot': Snapshot, 'test_doc': TestDoc, 'test_code': TestCode,
         },
+        install_requires=__pkg_data__.INSTALL_REQUIRES,
         entry_points=__pkg_data__.ENTRY_POINTS,
     )
 
