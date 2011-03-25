@@ -555,6 +555,7 @@ def main():
         packages=[__pkg_data__.MODULE.__name__],
         include_package_data=True,
         scripts=["%s.py" % i.__name__ for i in __pkg_data__.SCRIPTS],
+        test_requires=__pkg_data__.TEST_REQUIRES,
         license=__pkg_data__.MODULE.__license__,
         keywords=" ".join(__pkg_data__.KEYWORDS),
         classifiers=__pkg_data__.CLASSIFIERS,
