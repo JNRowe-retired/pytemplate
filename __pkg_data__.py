@@ -577,6 +577,7 @@ INSTALL_REQUIRES = ['setuptools', ]
 
 GRAPH_TYPE = None
 
+TEST_SUITE = 'nose.collector'
 TEST_EXTRAGLOBS = {}
 
 SCM = "git"

@@ -555,6 +555,7 @@ def main():
         packages=[__pkg_data__.MODULE.__name__],
         include_package_data=True,
         scripts=["%s.py" % i.__name__ for i in __pkg_data__.SCRIPTS],
+        test_suite=__pkg_data__.TEST_SUITE,
         test_requires=__pkg_data__.TEST_REQUIRES,
         zip_safe=False,
         license=__pkg_data__.MODULE.__license__,
