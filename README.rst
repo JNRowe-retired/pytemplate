@@ -52,6 +52,20 @@ Blue sky
 Technical debt
 --------------
 
+Contributing
+------------
+
+If you'd like to hack on ``{{ module }}``, start by forking `the repo`_
+on GitHub.
+
+The best way to have your changes merged is as follows:
+
+* Create your own fork
+* Use topic branches for your changes
+* Add tests for your changes
+* Push the branches to your fork
+* Open a pull request for each logical set of changes
+
 API Stability
 -------------
 
@@ -78,3 +92,4 @@ reproduce the problem, or even better a patch!
 .. _termcolor: http://pypi.python.org/pypi/termcolor/
 .. _mail: jnrowe@gmail.com
 .. _issue: https://github.com/JNRowe/{{ module }}/issues
+.. _the repo: https://github.com/JNRowe/{{ module }}
