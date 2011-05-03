@@ -1,3 +1,5 @@
 include doc/*.rst
 include doc/Makefile
 include doc/conf.py
+include test/features/*.feature
+include test/features/step_definitions.py
