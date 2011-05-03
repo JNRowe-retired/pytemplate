@@ -75,7 +75,8 @@ import test
 
 #: Base URL for links
 BASE_URL = "http://jnrowe.github.com/"
-PROJECT_URL = "%s%s" % (BASE_URL, __pkg_data__.MODULE.__name__)
+PROJECT_HOMEPAGE = "%s%s" % (BASE_URL, __pkg_data__.MODULE.__name__)
+PROJECT_URL = "https://github.com/JNRowe/%s" % __pkg_data__.MODULE.__name__
 
 if sys.version_info < (2, 5, 0, 'final'):
     raise SystemError("Requires Python v2.5+")
@@ -548,9 +549,9 @@ def main():
         long_description=__pkg_data__.LONG_DESCRIPTION,
         author=parseaddr(__pkg_data__.MODULE.__author__)[0],
         author_email=parseaddr(__pkg_data__.MODULE.__author__)[1],
-        url=PROJECT_URL,
-        download_url="%s_downloads/%s-%s.tar.bz2" \
-            % (BASE_URL, __pkg_data__.MODULE.__name__,
+        url=PROJECT_HOMEPAGE,
+        download_url="%s/tarball/%s-%s.tar.gz" \
+            % (PROJECT_URL, __pkg_data__.MODULE.__name__,
                __pkg_data__.MODULE.__version__),
         packages=[__pkg_data__.MODULE.__name__],
         include_package_data=True,
