@@ -1,9 +1,7 @@
-.ropeproject/
+*.egg-info/
 build/
 dist/
-doc/.build/
 
-*.html
 *.py[co]
 
 .coverage
