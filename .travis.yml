@@ -1,0 +1,31 @@
+language: python
+python:
+  - 2.6
+  - 2.7
+  - 3.2
+  - 3.3
+matrix:
+  include:
+    - python: 2.7
+      env: SPHINX_BUILD=true
+    - python: 3.2
+      env: SPHINX_DOCTEST=false
+install:
+  - pip install --quiet --use-mirrors -r extra/requirements-test.txt
+  - pip install --quiet --use-mirrors -r extra/requirements-doc.txt
+  - pip install --quiet --use-mirrors .
+script:
+  - nose2 -v -A '!no_travis' tests
+  - export BUILD_DIR=${PWD}/build/sphinx
+  - if [[ "${SPHINX_DOCTEST}" != false ]; then
+      sphinx-build -W -b doctest -d ${BUILD_DIR}/doctrees doc
+        ${BUILD_DIR}/doctest
+        || exit 1;
+    fi
+  - if [[ "${SPHINX_BUILD}" == true ]]; then
+      sphinx-build -n -W -b html -d ${BUILD_DIR}/doctrees doc ${BUILD_DIR}/html
+        || exit 1;
+    fi
+branches:
+  except:
+    - /^play\/.*$/
